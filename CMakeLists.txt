@@ -5,4 +5,6 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(DataStruct main.c)
 add_executable(chapter01_test chapter01/LinkList.c)
-add_executable(chapter03_test chapter03/NodeTest.c)
+add_executable(chapter02_test chapter02/SeqStack.c)
+add_executable(chapter03_test chapter03/LinkStack.c)
+add_executable(chapter06_test chapter06/NodeTest.c)

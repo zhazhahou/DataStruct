@@ -16,53 +16,54 @@ typedef struct SeqStack{
     DataType data[MaxSize];
     int top;
 }SeqStack;
-void InitStack(SeqStack s){
-    s.top=-1;
+void InitStack(SeqStack *s){
+    s->top=-1;
 }
-int EmptyStack(SeqStack s){
+int EmptyStack(SeqStack *s){
     int flag;
-    if(s.top==-1)
+    if(s->top==-1)
         flag=1;//1代表栈为空
     else
         flag=0;//0代表栈非空
     return flag;
 }
-int Push(SeqStack s,DataType x){
+int Push(SeqStack *s,DataType x){
     int flag;
-    if(s.top==MaxSize-1){
+    if(s->top==MaxSize-1){
         flag=1;//代表进栈失败
     } else{
-        s.data[++s.top]=x;
+        s->data[++s->top]=x;
         flag=0;
     }
     return flag;
 }
 
-int Pop(SeqStack s,DataType *x){
+int Pop(SeqStack *s,DataType *x){
     int flag;//flag标致位
-    if(s.top==-1){
+    if(s->top==-1){
         flag=-1;
     } else{
-        x=s.data[s.top--];
+        *x=s->data[s->top--];
         flag=0;
     }
     return flag;
 }
-void GetTop(SeqStack s,DataType *x){
+void GetTop(SeqStack *s,DataType *x){
     int flag;
-    if(s.top==-1){
+    if(s->top==-1){
         flag=0;//栈为空，无栈顶元素
     } else
     {
-        x=s.data[s.top];
+        *x=s->data[s->top];
     }
 }
 int main(){
     int x;
    SeqStack s;
-    InitStack(s);
-    Push(s,5);
-    GetTop(s,&x);
+    InitStack(&s);
+    Push(&s,5);
+    Push(&s,6);
+    GetTop(&s,&x);
     printf("%d",x);
     return 0;
 }

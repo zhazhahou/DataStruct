@@ -48,14 +48,16 @@ int Pop(SeqStack *s,DataType *x){
     }
     return flag;
 }
-void GetTop(SeqStack *s,DataType *x){
+int GetTop(SeqStack *s,DataType *x){
     int flag;
     if(s->top==-1){
         flag=0;//栈为空，无栈顶元素
     } else
     {
         *x=s->data[s->top];
+        flag=1;
     }
+    return flag;
 }
 int main(){
     int x;

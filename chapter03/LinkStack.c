@@ -8,65 +8,91 @@ typedef struct LinkStackNode{
 }LinkStackNode,*LinkStack;
 LinkStack InitStack(){
     LinkStack top;
-    top=(LinkStack) malloc(sizeof(LinkStack));
-    top->next=NULL;
+    top=NULL;
     return top;
 }
 int EmptyStack(LinkStack top){
-    int flag;
-    if(top->next==NULL){
-        printf("Stack is empty");
-        flag=1;//1代表栈为空
+    if(top==NULL){
+       // printf("Stack is empty");
+        return 1;
     } else{
-        flag=0; //0代表栈非空
-        printf("empty is not empty");
+        //printf("Stack is not empty");
+        return 0;
     }
-    return flag;
-}
-int  Push(LinkStack top,DataType x){
-    int flag;
-    LinkStackNode *node=(LinkStackNode *) malloc(sizeof(LinkStackNode));
-    if(node==NULL){
-        flag=1; //新节点创建失败
-    }
-    if(node!=NULL){
-        node->data=x;
-        node->next=top->next;
-        top->next=node;
-        flag=0;//新节点创建成功
-    }
-    return flag;
 
 }
-int  Pop(LinkStack top,DataType *x){
-    int flag;
-    LinkStackNode *node;
-    if(top==NULL){
-        flag=1;//栈为空出栈失败
-    } else {
-        node = top->next;
-        *x = node->data;
-        top->next = node->next;
-        free(node);
-        flag = 0;//出栈顶元素成功
+LinkStack Push(LinkStack top){
+    DataType x;
+    printf("input push element:");
+    scanf("%d",&x);
+    while (x!=9999){
+        LinkStackNode *node=(LinkStackNode *) malloc(sizeof(LinkStackNode));
+        node->data=x;
+        node->next=top;
+        top=node;
+        printf("input push element:");
+        scanf("%d",&x);
     }
-    return flag;
+       return top;
 }
-int  GetTop(LinkStack top,DataType *x){
-    int flag;
-    if(top->next==NULL){
-        flag=1;//栈为空无法出栈顶元素
+LinkStack Pop(LinkStack top,DataType *x){
+    LinkStackNode *node;
+    if(EmptyStack(top)){
+        return NULL;
+    } else {
+        *x= top->data;
+        node= top;
+        top= top->next;
+        free(node);
+        return top;
+      }
+}
+int GetTop(LinkStack top,DataType *x){
+    if(EmptyStack(top)){
+        return 0;
     } else{
         *x=top->data;
-        flag=1;
+        return 1;
     }
-    return flag;
+}
+void ShowStack(LinkStack top){
+    if(top==NULL){
+        printf("stack is empty");
+        return;
+    }
+    while (top!=NULL){
+        printf("%d\t",top->data);
+        top=top->next;
+    }
 }
 int main(){
-    DataType x=5;//进栈元素
-    DataType y; //出栈顶元素
+    DataType y=0; //出栈顶元素
+    int flag;
     LinkStack top;
     top=InitStack();
-
+    flag=EmptyStack(top);
+    if(flag==1){
+        printf("stack is empty");
+    } else{
+        printf("stack is not empty");
+    }
+      top=Push(top);
+    printf("=============");
+    flag=EmptyStack(top);
+    if(flag==1){
+        printf("stack is empty");
+    } else{
+        printf("stack is not empty");
+    }
+    //ShowStack(top);
+//    while (top!=NULL){
+//        top=Pop(top,&y);
+//        printf("%d",y);
+//    }
+    printf("\n===============\n");
+      //Pop(top,&y);
+      //GetTop(top,&y);
+     //printf("%d",y);
     return 0;
 }
+
